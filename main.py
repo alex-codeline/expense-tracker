@@ -64,12 +64,15 @@ while True:
             else:
                 print(f"Сумма расходов по данной категории - {total}")
     elif menu==5:
-        category2=set()
-        for expend in expenses:
-            category2.add(expend["category"])
-        print(f"Разных категорий - {len(category2)}")
-        for category in category2:
-            print("-", category)
+        categories=set()
+        if expenses==[]:
+            print("Расходов пока нет.")
+        else:
+            for expend in expenses:
+                categories.add(expend["category"])
+            print(f"Разных категорий - {len(categories)}")
+            for category in categories:
+                print("-", category)
     elif menu==0:
         print("Буду ждать Вас,до новых встреч!")
         break
