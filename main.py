@@ -52,7 +52,7 @@ while True:
         if expenses==[]:
             print("Еще нет ни одной категории.")
         else:
-            category=input("Введите название улицы: ").strip().lower()
+            category=input("Введите название категории: ").strip().lower()
             counter=0
             total=0
             for expend in expenses:
