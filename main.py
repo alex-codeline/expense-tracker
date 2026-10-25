@@ -1,27 +1,11 @@
 expenses=[]
 def expend_add():
     """Добавление расхода"""
-    while True:
-        expend={}
-        expend["category"]=ask_category()
-        if expend["category"] =="":
-            print("Введите название категории!")
-            continue
-        while True:
-            try:
-                amount=float(input("Введите потраченную сумму: "))
-                if amount<=0:
-                    print("Введите хотя бы какую то сумму.")
-                    continue
-            except ValueError:
-                print("Сумму нужно ввести цифрами!")
-                continue
-            break
-        expend["amount"]=amount
-        expend["description"]=input("Опишите свои расходы(по желанию): ")
-        expenses.append(expend)
-        break
-    return
+    expend={}
+    expend["category"]=ask_category()
+    expend["amount"]=ask_amount()
+    expend["description"]=input("Опишите свои расходы(по желанию): ")
+    expenses.append(expend)
 def show_expenses():
     """Показать все расходы по списку"""
     if expenses==[]:
@@ -34,17 +18,13 @@ def show_expenses():
             else:
                 print(f"{number}. {expend['amount']} ₽ - {expend['category']} ({expend['description']})")
             number+=1
-    return 
 def result_expenses():
     """Итог по всем расходам"""
     if expenses==[]:
         print("Пока нет расходов.")
     else:
-        total=0
-        for expend in expenses:
-            total+=expend['amount']
+        total=calc_total(expenses)
         print(f"Сумма всех расходов - {total}! Общее количество расходов - {len(expenses)}")
-    return
 def result_onecategory():
     """Итог по одной категории"""
     if expenses==[]:
@@ -61,7 +41,6 @@ def result_onecategory():
             print("Категория не найдена.") 
         else:
             print(f"Сумма расходов по данной категории - {total}")
-    return    
 def list_category():
     """Список категорий столбцом"""
     categories=set()
@@ -73,9 +52,33 @@ def list_category():
         print(f"Разных категорий - {len(categories)}")
         for category in categories:
             print("-", category)
-    return
 def ask_category():
-    category=input("Введите название категории: ").strip().lower()
+    """Спрашивает категорию, пока не введут непустую, и возвращает её."""
+    while True:
+        category = input("Введите название категории: ").strip().lower()
+        if category == "":
+            print("Введите название категории!")
+            continue
+        return category
+def ask_amount():
+    """Спрашивает сумму,пока не введут какое то число,и возвращает ее"""
+    while True:
+        try:
+            amount=float(input("Введите потраченную сумму: "))
+            if amount<=0:
+                print("Введите хотя бы какую то сумму.")
+                continue
+        except ValueError:
+            print("Сумму нужно ввести цифрами!")
+            continue
+        break
+    return amount
+def calc_total(expenses):
+    total=0
+    for expend in expenses:
+        total+=expend['amount']
+    return total
+
 
 while True:
     try:
