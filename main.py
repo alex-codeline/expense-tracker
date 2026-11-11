@@ -31,7 +31,7 @@ def result_onecategory(expenses):
         print("Еще нет ни одной категории.")
     else:
         category=ask_category()
-        result=calc_category_total(expenses)
+        result=calc_category_total(expenses,category)
         if result is None:
             print("Категория не найдена.")
         else:
