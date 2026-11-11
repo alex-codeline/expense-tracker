@@ -31,16 +31,11 @@ def result_onecategory(expenses):
         print("Еще нет ни одной категории.")
     else:
         category=ask_category()
-        counter=0
-        total=0
-        for expend in expenses:
-            if expend['category']==category:
-                counter+=1
-                total+=expend['amount']
-        if counter==0:
-            print("Категория не найдена.") 
+        result=calc_category_total(expenses)
+        if result is None:
+            print("Категория не найдена.")
         else:
-            print(f"Сумма расходов по данной категории - {total}")
+            print(f"Сумма расходов по данной категории - {result}")
 def list_category(expenses):
     """Список категорий столбцом"""
     categories=set()
@@ -78,6 +73,17 @@ def calc_total(expenses):
     for expend in expenses:
         total+=expend['amount']
     return total
+def calc_category_total(expenses,category):
+    counter=0
+    total=0
+    for expend in expenses:
+        if expend['category']==category:
+            counter+=1
+            total+=expend['amount']
+    if counter==0:
+        return None
+    else:
+        return total
 
 
 while True:
@@ -95,7 +101,7 @@ while True:
     elif menu==3:
         result_expenses(expenses)
     elif menu==4:
-        result_onecategory()
+        result_onecategory(expenses)
     elif menu==5:
         list_category(expenses)
     elif menu==0:
