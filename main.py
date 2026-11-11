@@ -1,12 +1,12 @@
 expenses=[]
-def expend_add():
+def expend_add(expenses):
     """Добавление расхода"""
     expend={}
     expend["category"]=ask_category()
     expend["amount"]=ask_amount()
     expend["description"]=input("Опишите свои расходы(по желанию): ")
     expenses.append(expend)
-def show_expenses():
+def show_expenses(expenses):
     """Показать все расходы по списку"""
     if expenses==[]:
         print("Пока нет никаких расходов!")
@@ -18,14 +18,14 @@ def show_expenses():
             else:
                 print(f"{number}. {expend['amount']} ₽ - {expend['category']} ({expend['description']})")
             number+=1
-def result_expenses():
+def result_expenses(expenses):
     """Итог по всем расходам"""
     if expenses==[]:
         print("Пока нет расходов.")
     else:
         total=calc_total(expenses)
         print(f"Сумма всех расходов - {total}! Общее количество расходов - {len(expenses)}")
-def result_onecategory():
+def result_onecategory(expenses):
     """Итог по одной категории"""
     if expenses==[]:
         print("Еще нет ни одной категории.")
@@ -41,7 +41,7 @@ def result_onecategory():
             print("Категория не найдена.") 
         else:
             print(f"Сумма расходов по данной категории - {total}")
-def list_category():
+def list_category(expenses):
     """Список категорий столбцом"""
     categories=set()
     if expenses==[]:
@@ -89,15 +89,15 @@ while True:
         print("Нужно вводить числа,а не буквы или пустоту!")
         continue
     if menu==1:
-        expend_add()
+        expend_add(expenses)
     elif menu==2:
-        show_expenses()
+        show_expenses(expenses)
     elif menu==3:
-        result_expenses()
+        result_expenses(expenses)
     elif menu==4:
         result_onecategory()
     elif menu==5:
-        list_category()
+        list_category(expenses)
     elif menu==0:
         print("Буду ждать Вас,до новых встреч!")
         break
